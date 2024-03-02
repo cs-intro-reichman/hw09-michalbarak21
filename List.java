@@ -38,14 +38,12 @@ public class List {
     /** GIVE Textual representation of this list. */
     public String toString() {
         CharData[] charDataArr = this.toArray();
-        String[] stringArr = new String[size + 2];
+        String[] stringArr = new String[size];
         for (int i=0; i<size; i++) {
-            stringArr[i+1] = charDataArr[i].toString();
+            stringArr[i] = charDataArr[i].toString();
         }
-        stringArr[0] = "(";
-        stringArr[size + 1] = ")";
 
-        String listString = String.join(" ", stringArr);
+        String listString = "(" + String.join(" ", stringArr) + ")";
         return listString;
     }
 
