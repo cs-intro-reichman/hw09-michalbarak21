@@ -19,7 +19,7 @@ public class List {
 
     /** Returns the number of elements in this list. */
     public int getSize() {
- 	      return size;
+ 	    return size;
     }
 
     /** Returns the first element in the list */
@@ -29,40 +29,102 @@ public class List {
 
     /** GIVE Adds a CharData object with the given character to the beginning of this list. */
     public void addFirst(char chr) {
-        // Your code goes here
+        CharData newFirstNodeData = new CharData(chr);
+        Node newFirstNode = new Node(newFirstNodeData, first);
+        first = newFirstNode;
+        size += 1;
     }
     
     /** GIVE Textual representation of this list. */
     public String toString() {
-        // Your code goes here
+        CharData[] charDataArr = this.toArray();
+        String[] stringArr = new String[size];
+        for (int i=0; i<size; i++) {
+            stringArr[i] = charDataArr[i].toString();
+        }
+        String listString = String.join("", stringArr);
+        return listString;
     }
 
     /** Returns the index of the first CharData object in this list
      *  that has the same chr value as the given char,
      *  or -1 if there is no such object in this list. */
     public int indexOf(char chr) {
-        // Your code goes here
+        Node current = first;
+        int index = 0;
+        while (current != null) {
+            if (current.cp.equals(chr)) {
+                return index;
+            }
+            index += 1;
+            current = current.next;
+        }
+        return -1;
     }
 
     /** If the given character exists in one of the CharData objects in this list,
      *  increments its counter. Otherwise, adds a new CharData object with the
      *  given chr to the beginning of this list. */
     public void update(char chr) {
-        // Your code goes here
+        Node current = first;
+        while (current != null) {
+            if (current.cp.equals(chr)) {
+                current.cp.count += 1;
+                return;
+            }
+        }
+
+        // if we got to this point it means that the character was not found in the list
+        this.addFirst(chr);
     }
 
     /** GIVE If the given character exists in one of the CharData objects
      *  in this list, removes this CharData object from the list and returns
      *  true. Otherwise, returns false. */
     public boolean remove(char chr) {
-        // Your code goes here
+        if (size == 0) {
+            return false;
+        }
+
+        // if first is equal to chr, the first value of the list has to change
+        if (first.cp.equals(chr)) {
+            first = first.next;
+            size -= 1;
+            return true;
+        }
+
+        // if we got to this point it means that first.cp != chr
+        if (size == 1) {
+            return false;
+        }
+
+        // if we got to this point it means that size >= 2
+        Node current = first.next;
+        Node previous = first;
+
+        while (current != null) {
+            if (current.cp.equals(chr)) {
+                previous.next = current.next;
+                size -= 1;
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
     }
 
     /** Returns the CharData object at the specified index in this list. 
      *  If the index is negative or is greater than the size of this list, 
      *  throws an IndexOutOfBoundsException. */
     public CharData get(int index) {
-        // Your code goes here
+        if (index > size) {
+            throw new java.lang.IndexOutOfBoundsException();
+        }
+        Node current = first;
+        for (int i = 0; i < index; i ++) {
+            current = current.next;
+        }
+        return current.cp;            
     }
 
     /** Returns an array of CharData objects, containing all the CharData objects in this list. */
