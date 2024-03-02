@@ -72,6 +72,7 @@ public class List {
                 current.cp.count += 1;
                 return;
             }
+            current = current.next;
         }
 
         // if we got to this point it means that the character was not found in the list
@@ -109,6 +110,7 @@ public class List {
                 return true;
             }
             current = current.next;
+            previous = previous.next;
         }
         return false;
     }
