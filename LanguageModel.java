@@ -74,7 +74,7 @@ public class LanguageModel {
         double cummProb = 0.0;
         for (int i=0; i<probs.getSize(); i++) {
             current = probs.get(i);
-            current.p = current.count / totalNumChars;
+            current.p = (double) current.count / totalNumChars;
             current.cp = cummProb + current.p;
             cummProb += current.p;
         }
