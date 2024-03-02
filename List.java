@@ -42,7 +42,7 @@ public class List {
         for (int i=0; i<size; i++) {
             stringArr[i] = charDataArr[i].toString();
         }
-        String listString = String.join("", stringArr);
+        String listString = String.join("\n", stringArr);
         return listString;
     }
 
